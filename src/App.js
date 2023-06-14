@@ -1,24 +1,73 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import About from './components/About';
+import Navbar from './components/Navbar'
+
+
+import TextForms from './components/TextForms'
+import React from 'react'
+import DismissingAlert from './components/DismissingAlert';
+import { BrowserRouter, Route,Routes } from 'react-router-dom';
+
+
+
+
+
 
 function App() {
+  const[mode,setMode]=useState('light')
+  const[alert,setAlert]=useState(null);
+
+  const showAlert = ()=>{
+    
+    }
+  const toggleMode=()=>{
+    if(mode==='light'){
+      setMode('dark');
+      document.body.style.backgroundColor='grey'
+      showAlert("Dark mode has been enabled ",'success')
+      document.title="TextUtils - Dark mode"
+    }
+    else{
+      setMode('light');
+      document.body.style.backgroundColor='white'
+      showAlert("Light mode has been enabled ",'success')
+
+
+    }
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <BrowserRouter>
+    
+    <Routes>
+    
+     <Route path="/" element={<Navbar title="TextUtils"aboutText="About" mode={mode} toggleMode={toggleMode}/>}
+     />
+     <Route path="/about" element=
+     {<><Navbar title="TextUtils"aboutText="About" mode={mode} toggleMode={toggleMode}/><About/></>} />
+     <Route path="/none" element={<><Navbar title="TextUtils"aboutText="About" mode={mode} toggleMode={toggleMode}/><TextForms showAlert={showAlert} mode={mode} heading="Enter Your Text to Analyze"/></>} />
+    </Routes>
+    </BrowserRouter>
+    <DismissingAlert alert={alert}/>
+    <div className="container my-3">
+    
+           
+          
+          
+   
+         
+        
+  
+  
+</div>
+      
+          
+        
+    
+       
+    </>
   );
 }
 
